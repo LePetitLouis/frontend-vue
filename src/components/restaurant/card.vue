@@ -1,21 +1,11 @@
 <script setup lang="ts">
-import type { Restaurant, Review } from '~/composables/restaurants';
+import { type Restaurant, useAverageRating } from '~/composables/restaurants';
 
 const props = defineProps<{
   restaurant: Restaurant
 }>();
 
-function formatAverage(num: number) {
-  const rounded = Math.round(num * 10) / 10;
-  return Number.isInteger(rounded) ? rounded : Number.parseFloat(rounded.toFixed(1));
-};
-
-const average = computed(() => {
-  const ratings = props.restaurant?.reviews?.map((review: Review) => review.rating);
-  if (!ratings || ratings.length === 0) return 0;
-  const sum = ratings.reduce((acc, rating) => acc + rating, 0);
-  return formatAverage(sum / ratings.length);
-});
+const { average } = useAverageRating(props.restaurant);
 </script>
 
 <template>

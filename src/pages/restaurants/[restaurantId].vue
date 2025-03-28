@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { useFetchRestaurant } from '~/composables/restaurants';
+import { useAverageRating, useFetchRestaurant } from '~/composables/restaurants';
 
 const { params } = useRoute();
 const { data: restaurant, isError } = useFetchRestaurant({ restaurantId: params.restaurantId });
+
+const { average } = useAverageRating(restaurant.value);
 </script>
 
 <template>
@@ -26,11 +28,22 @@ const { data: restaurant, isError } = useFetchRestaurant({ restaurantId: params.
         <VCardTitle class="!text-4xl text-white">
           {{ restaurant.name }}
         </VCardTitle>
-        <VAlert variant="flat" type="warning" class="mx-4 inline-block">
+        <div v-if="average > 0" class="flex items-center gap-2 mx-4 color-white">
+          {{ average }}
+          <VRating
+            readonly
+            half-increments
+            :length="5"
+            :size="28"
+            :model-value="average"
+          />
+        </div>
+        <!-- TODO Fixed ! -->
+        <!-- <VAlert variant="flat" type="warning" class="mx-4 inline-block">
           TODO: display the mean rating
           <br>
           Vuetify has a component for this. Use this one
-        </VAlert>
+        </VAlert> -->
       </VImg>
       <VCardText>
         <div class="grid grid-cols-2 gap-4">
