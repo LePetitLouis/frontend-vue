@@ -15,7 +15,7 @@ const { average } = useAverageRating(restaurant.value);
     You should fix that
   </VAlert> -->
   <LoadingError v-if="isError" />
-  <div class="grid grid-cols-[minmax(0,_1fr)_16rem] gap-6">
+  <div class="grid grid-cols-1 md:grid-cols-[minmax(0,_1fr)_16rem] gap-6">
     <VCard v-if="restaurant">
       <VImg
         v-for="photo in restaurant.photos"
@@ -60,11 +60,16 @@ const { average } = useAverageRating(restaurant.value);
       </VCardText>
     </VCard>
     <aside>
-      <VAlert type="warning">
+      <!-- TODO Fixed ! -->
+      <!-- <VAlert type="warning">
         TODO: this should go under the company card on small device
-      </VAlert>
-      <ul class="pa-0">
-        <RestaurantReview />
+      </VAlert> -->
+      <ul v-if="restaurant" class="pa-0 flex flex-col gap-4">
+        <RestaurantReview
+          v-for="review of restaurant.reviews"
+          :key="review.id"
+          :review="review"
+        />
       </ul>
     </aside>
   </div>
