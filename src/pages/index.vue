@@ -7,7 +7,8 @@ const { data: restaurants, isError } = useFetchRestaurants();
 <template>
   <div>
     <RatingFilter />
-    <VAlert type="warning" class="my-4">
+    <!-- TODO Fixed ! -->
+    <!-- <VAlert type="warning" class="my-4">
       TODO: this should be presented as a grid<br>
       • 3 columns max<br>
       • 1 column on small devices <br>
@@ -20,9 +21,9 @@ const { data: restaurants, isError } = useFetchRestaurants();
       >
         Vuetify's grid components
       </a>
-    </VAlert>
+    </VAlert> -->
     <LoadingError v-if="isError" />
-    <div v-else-if="restaurants">
+    <div v-else-if="restaurants" class="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">
       <RestaurantCard
         v-for="restaurant of restaurants"
         :key="restaurant.id"
