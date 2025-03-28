@@ -50,10 +50,11 @@ const { average } = useAverageRating(restaurant.value);
           <RestaurantLocation :location="restaurant.location" />
           <KeyValue icon="mdi-phone">
             <p class="text-body-1">
-              {{ restaurant.phone }}
-              <VAlert type="warning">
+              {{ restaurant.display_phone }}
+              <!-- TODO Fixed ! -->
+              <!-- <VAlert type="warning">
                 ↑ TODO: we would like to display the formatted phone
-              </VAlert>
+              </VAlert> -->
             </p>
           </KeyValue>
         </div>
