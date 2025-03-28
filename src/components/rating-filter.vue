@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import { useRatingFilter } from '@/src/composables/rating';
+
+const { selectedRating } = useRatingFilter();
+
 const ratingFilterItems = [
   { title: `all restaurants`, value: 0 },
   { title: `5 stars`, value: 5 },
@@ -11,14 +15,21 @@ const ratingFilterItems = [
 
 <template>
   <VCard variant="outlined">
-    <VAlert type="info">
+    <!-- TODO Fixed ! -->
+    <!-- <VAlert type="info">
       TODO: this is a bonus! <br>
       Implement the rating filter
-    </VAlert>
+    </VAlert> -->
     <VCardText>
       <div class="flex flex-wrap items-center justify-between gap-8">
         <strong>Filter the restaurants by ratings</strong>
-        <VSelect :items="ratingFilterItems" variant="solo" hide-details="auto" placeholder="all restaurants" />
+        <VSelect
+          v-model="selectedRating"
+          :items="ratingFilterItems"
+          variant="solo"
+          hide-details="auto"
+          placeholder="all restaurants"
+        />
       </div>
     </VCardText>
   </VCard>

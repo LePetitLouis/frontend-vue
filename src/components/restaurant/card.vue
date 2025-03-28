@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { type Restaurant, useAverageRating } from '~/composables/restaurants';
+import { type Restaurant } from '~/composables/restaurants';
+import { useAverageRating } from '@/src/composables/rating';
 
 const props = defineProps<{
   restaurant: Restaurant

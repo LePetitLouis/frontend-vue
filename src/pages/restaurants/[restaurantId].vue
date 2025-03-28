@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { useAverageRating, useFetchRestaurant } from '~/composables/restaurants';
+import { useFetchRestaurant } from '~/composables/restaurants';
+import { useAverageRating } from '@/src/composables/rating';
 
 const { params } = useRoute();
 const { data: restaurant, isError } = useFetchRestaurant({ restaurantId: params.restaurantId });
