@@ -11,6 +11,10 @@ const filteredRestaurants = computed(() => {
     return selectedRating.value === 0 || average.value >= selectedRating.value;
   });
 });
+
+defineExpose({
+  selectedRating,
+});
 </script>
 
 <template>

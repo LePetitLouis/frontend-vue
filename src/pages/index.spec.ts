@@ -34,4 +34,23 @@ describe(`page-home`, () => {
     await flushPromises();
     expect(wrapper.findComponent(LoadingError).exists()).toBe(true);
   });
+
+  it(`filters restaurants based on the selected rating`, async (context) => {
+    vi.spyOn(apiService, `api`)
+      .mockImplementationOnce(() => ({ json: vi.fn().mockResolvedValue(restaurantsResponse) } as any))
+      .mockImplementationOnce(() => ({ json: vi.fn().mockRejectedValueOnce(new Error(`something went wrong`)) } as any));
+
+    const wrapper = mount(PageHome, {
+      global: {
+        plugins: [context.router],
+      },
+    });
+    wrapper.vm.selectedRating = 4;
+    await flushPromises();
+    expect(apiService.api).toHaveBeenCalled();
+    expect(apiService.api).toHaveBeenCalledWith(`restaurants`);
+    expect(wrapper.findComponent(LoadingError).exists()).toBe(false);
+    expect(wrapper.vm.selectedRating).toBe(4);
+    expect(wrapper.findAllComponents(RestaurantCard).length).toBe(11);
+  });
 });
